@@ -2,11 +2,11 @@
 
 import twilio from 'twilio';
 
-const accountSid = 'AC267c7407add423c2b7da6b28ea458082';
-const authToken = '6faa89c14effbea866fd3f57f9981fb0';
+const accountSid = '';
+const authToken = '';
 const client = twilio(accountSid, authToken);
 
-const verifyServiceSid = 'VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'; // Replace with your actual Verify Service SID
+const verifyServiceSid = ' '; // Replace with your actual Verify Service SID
 
 export const sendVerification = async (to: string, channel: 'sms' | 'email') => {
     try {

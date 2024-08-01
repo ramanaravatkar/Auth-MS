@@ -1,32 +1,32 @@
-// src/app.ts
+// app.ts
+
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes';
 
-
-
-
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
-const MONGO_URI = process.env.MONGO_URI || '';
 
 app.use(express.json());
 
+const mongoUri = 'mongodb://localhost:27017/auth-db'; // for local MongoDB
+// const mongoUri = 'mongodb+srv://username:password@cluster0.mongodb.net/your-database-name?retryWrites=true&w=majority'; // for MongoDB Atlas
+
+mongoose.set('strictQuery', true); // Add this line to suppress the deprecation warning
+
+mongoose.connect(mongoUri, {
+    // useNewUrlParser: true,
+    // useUnifiedTopology: true,
+}).then(() => {
+    console.log('Connected to MongoDB');
+}).catch((error) => {
+    console.error('Error connecting to MongoDB:', error);
+});
+
 app.use('/api/auth', authRoutes);
 
-mongoose.connect(MONGO_URI, {
-  // useNewUrlParser: true,
-  // useUnifiedTopology: true,
-})
-.then(() => {
-  console.log('Connected to MongoDB');
-  app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-  });
-})
-.catch(err => {
-  console.error('Failed to connect to MongoDB', err);
+app.listen(5000, () => {
+    console.log('Server running on port 5000');
 });

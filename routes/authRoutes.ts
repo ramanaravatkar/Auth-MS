@@ -1,18 +1,19 @@
+// routes/authRoutes.ts
+
 import express from 'express';
-import { register, login, forgotPassword, resetPassword, updatePhoneNumber, updateEmail } from '../controllers/authController';
-import { Router } from 'express';
-import { generateAndSend2FAToken, verify2FAToken } from '../controllers/authController';
+import { register,signIn,changeTwoFAMethod,forgotPassword, resetPassword, updatePhoneNumber, updateEmail, viewProfile, updateProfile, sendOtp, verifyOtp } from '../controllers/authController';
 
 const router = express.Router();
-
-router.post('/register', register);
-router.post('/login', login);
+router.post('/register',register);
+router.post('/signIn',signIn);
+router.post('/changeTwoFAMethod',changeTwoFAMethod);
 router.post('/forgot-password', forgotPassword);
-router.post('/reset-password/:token', resetPassword);
-router.patch('/update-phone', updatePhoneNumber);
-router.patch('/update-email', updateEmail);
-router.post('/2fa/generate', generateAndSend2FAToken);
-router.post('/2fa/verify', verify2FAToken);
+router.post('/reset-password', resetPassword);
+router.post('/update-phone', updatePhoneNumber);
+router.post('/update-email', updateEmail);
+router.get('/profile/:userId', viewProfile);
+router.put('/profile/:userId', updateProfile);
+router.post('/send-otp', sendOtp); // Route to send OTP
+router.post('/verify-otp', verifyOtp); // Route to verify OTP
 
 export default router;
-
